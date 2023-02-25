@@ -10,6 +10,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update \
 && apt-get upgrade -y \
 && apt-get install -y
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -31,4 +32,5 @@ COPY ./app /app
 # launch server with gunicorn
 WORKDIR /app
 EXPOSE 5000
-CMD ["flask","run"]
+CMD ["gunicorn", "main:app", "--timeout=0", "--preload", \
+     "--workers=1", "--threads=4", "--bind=0.0.0.0:5000"]
