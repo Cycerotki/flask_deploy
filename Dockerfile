@@ -31,6 +31,6 @@ COPY ./app /app
 
 # launch server with gunicorn
 WORKDIR /app
-EXPOSE 5000
+EXPOSE 8080
 CMD ["gunicorn", "main:app", "--timeout=0", "--preload", \
-     "--workers=1", "--threads=4", "--bind=0.0.0.0:5000"]
+     "--workers=1", "--threads=4", "--bind=0.0.0.0:8080"]
