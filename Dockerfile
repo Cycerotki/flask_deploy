@@ -20,7 +20,7 @@ ENV PYTHONUNBUFFERED 1
 # Install libraries
 ADD requirements.txt .
 RUN pip install -r requirements.txt --no-cache-dir
-RUN pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116
+# RUN pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116
 
 # Setup container directories
 RUN mkdir /app
@@ -31,5 +31,4 @@ COPY ./app /app
 # launch server with gunicorn
 WORKDIR /app
 EXPOSE 5000
-CMD ["gunicorn", "main:app", "--timeout=0", "--preload", \
-     "--workers=1", "--threads=4", "--bind=0.0.0.0:5000"]
+CMD ["flask","run"]
